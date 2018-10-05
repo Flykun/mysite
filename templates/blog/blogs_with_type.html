@@ -1,0 +1,29 @@
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#  <meta charset="UTF-8">#}
+{##}
+{#</head>#}
+{#<body>#}
+{##}
+{#</body>#}
+{#</html>#}
+
+{% extends 'blog/base.html' %}
+{% block title %}
+  {{ blog_type.type_name }}
+{% endblock %}
+
+{% block content %}
+  <p>一共有{{ blogs|length }}篇博客</p>
+  <h3>{{ blog_type.type_name }}</h3>
+
+  {% for blog in blogs %}
+    <a href="{% url 'blog_detail' blog.pk %}">
+      <h3>{{ blog.title }}</h3>
+    </a>
+    <p>{{ blog.content|truncatechars:30 }}</p>
+  {% empty %}
+    <p>说点啥吧</p>
+  {% endfor %}
+{% endblock %}
