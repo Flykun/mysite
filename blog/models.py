@@ -9,6 +9,8 @@ class BlogType(models.Model):
         return self.type_name
 
 
+
+
 class Blog(models.Model):
     title = models.CharField(max_length=50)
     content = models.TextField()
@@ -19,3 +21,6 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        ordering = ['-created_time']
