@@ -1,9 +1,22 @@
 {% extends 'blog/base.html' %}
 
 {% block title %}
-我的网站|首页
+  我的网站|首页
 {% endblock %}
 
 {% block content %}
-  <h3>欢迎访问</h3>
+  <h3 class="home-context">欢迎访问</h3>
+
+
+  <style type="text/css">
+    .home-context {
+      font-size: 200%;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      top: 50%
+    }
+
+  </style>
+
 {% endblock %}
