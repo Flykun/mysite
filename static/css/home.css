@@ -1,0 +1,8 @@
+.home-context {
+    font-size: 200%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%
+}
+

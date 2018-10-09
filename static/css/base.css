@@ -1,0 +1,19 @@
+body {
+    margin: auto;
+    padding: auto;
+}
+
+div.nav {
+    background-color: #eeeeee;
+    border-bottom: 1px solid #eeeeee;
+}
+
+div.nav a {
+    text-decoration: none;
+    padding: auto;
+}
+
+div.nav a.logo {
+    display: inline-block;
+    font-size: larger;
+}
