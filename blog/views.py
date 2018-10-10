@@ -4,15 +4,20 @@ from django.core.paginator import Paginator
 from blog.models import BlogType, Blog
 
 
-
 def home(request):
     context = {}
     return render(request, 'blog/home.html', context)
 
 
 def blog_list(request):
-    context = {'blogs': Blog.objects.all()}
-    return render(request, 'blog/blog_list.html', context)
+    contact_list = Blog.objects.all()
+    paginator = Paginator(contact_list, 2)
+
+    page = request.GET.get('page')
+    contacts = paginator.get_page(page)
+
+    return render(request, 'blog/blog_list.html',
+                  {'paginator': paginator, 'contacts': contacts})
 
 
 def blog_detail(request, blog_pk):

@@ -4,13 +4,51 @@
 {% endblock %}
 
 {% block content %}
-  <p>一共有{{ blogs|length }}篇博客</p>
-{% for blog in blogs %}
-  <a href="{% url 'blog_detail' blog.pk %}">
-    <h3>{{ blog.title }}----{{ blog.blog_type.type_name }}</h3>
-  </a>
-  <p>{{ blog.content|truncatechars:30 }}</p>
-{% empty %}
-  <p>说点啥吧</p>
-{% endfor %}
+  <p>一共有{{ contacts|length }}篇博客</p>
+  {% for blog in contacts %}
+    <a href="{% url 'blog_detail' blog.pk %}">
+      <h3>{{ blog.title }}----{{ blog.blog_type.type_name }}</h3>
+    </a>
+    <p>{{ blog.content|truncatechars:30 }}</p>
+  {% empty %}
+    <p>说点啥吧</p>
+  {% endfor %}
+
+  <div class="pagination">
+    <div class="step-links">
+
+      <div aria-label="Page navigation">
+        <ul class="pagination">
+
+          <li>
+            {% if contacts.has_previous %}
+              <a href="?page=1">&laquo; 首页</a>
+              <a href="?page={{ contacts.previous_page_number }}">上一页</a>
+            {% endif %}
+          </li>
+
+          {% for page_number in paginator.page_range %}
+            {% if page_number == contacts.number %}
+              <li class="active"><a href="?page={{ page_number }}"
+              >{{ page_number }}</a></li>
+            {% else %}
+              <li><a href="?page={{ page_number }}">{{ page_number }}</a></li>
+            {% endif %}
+          {% endfor %}
+
+          <li>
+            {% if contacts.has_next %}
+              <a href="?page={{ contacts.next_page_number }}">下一页</a>
+              <a href="?page={{ contacts.paginator.num_pages }}">尾页 &raquo;</a>
+            {% endif %}
+
+          <li>
+            第 {{ contacts.number }} 页 共 {{ contacts.paginator.num_pages }} 页
+          </li>
+
+        </ul>
+      </div>
+
+    </div>
+  </div>
 {% endblock %}
