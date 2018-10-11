@@ -9,7 +9,7 @@
     <a href="{% url 'blog_detail' blog.pk %}">
       <h3>{{ blog.title }}----{{ blog.blog_type.type_name }}</h3>
     </a>
-    <p>{{ blog.content|truncatechars:30 }}</p>
+    <p>{{ blog.content|striptags|truncatechars:30 }}</p>
   {% empty %}
     <p>说点啥吧</p>
   {% endfor %}

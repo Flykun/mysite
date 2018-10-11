@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class BlogType(models.Model):
@@ -9,11 +10,9 @@ class BlogType(models.Model):
         return self.type_name
 
 
-
-
 class Blog(models.Model):
     title = models.CharField(max_length=50)
-    content = models.TextField()
+    content = RichTextUploadingField()
     author = models.ForeignKey(User, on_delete='DO_NOTHING')
     created_time = models.DateTimeField(auto_now_add=True)
     last_update_time = models.DateTimeField(auto_now=True)
