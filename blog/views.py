@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.shortcuts import render
 from django.core.paginator import Paginator
 
@@ -17,11 +19,18 @@ def blog_list(request):
     contacts = paginator.get_page(page)
 
     return render(request, 'blog/blog_list.html',
-                  {'paginator': paginator, 'contacts': contacts})
+                  {'paginator': paginator,
+                   'contacts': contacts, }
+                  )
 
 
 def blog_detail(request, blog_pk):
     blog = Blog.objects.get(pk=blog_pk)
+
+    # 设置cookie
+    if not request.COOKIES.get(f'blog_{blog_pk}_read'):
+        blog.read_num += 1
+        blog.save()
 
     previous_blog = Blog.objects.filter(
         created_time__gt=blog.created_time).last()
@@ -30,12 +39,14 @@ def blog_detail(request, blog_pk):
                'previous_blog': previous_blog,
                'next_blog': next_blog
                }
-    return render(request, 'blog/blog_detail.html', context)
+    response = render(request, 'blog/blog_detail.html', context)
+    response.set_cookie(f'blog_{blog_pk}_read', True, max_age=60)
+    return response
 
 
 def blogs_with_type(request, blog_type_pk):
     blog_type = BlogType.objects.get(pk=blog_type_pk)
     type_blogs = Blog.objects.filter(blog_type__pk=blog_type_pk)
-    blog_all_list = Blog.objects.filter(blog_type=blog_type)
+
     context = {'blogs': type_blogs, 'blog_type': blog_type}
     return render(request, 'blog/blogs_with_type.html', context)

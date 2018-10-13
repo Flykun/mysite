@@ -16,6 +16,7 @@ class Blog(models.Model):
     author = models.ForeignKey(User, on_delete='DO_NOTHING')
     created_time = models.DateTimeField(auto_now_add=True)
     last_update_time = models.DateTimeField(auto_now=True)
+    read_num = models.IntegerField(default=0)
     blog_type = models.ForeignKey('BlogType', on_delete='DO_NOTHING')
 
     def __str__(self):

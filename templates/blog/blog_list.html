@@ -5,11 +5,13 @@
 
 {% block content %}
   <p>一共有{{ contacts|length }}篇博客</p>
+
   {% for blog in contacts %}
     <a href="{% url 'blog_detail' blog.pk %}">
       <h3>{{ blog.title }}----{{ blog.blog_type.type_name }}</h3>
     </a>
     <p>{{ blog.content|striptags|truncatechars:30 }}</p>
+    <p>阅读数量: {{ blog.read_num }}</p>
   {% empty %}
     <p>说点啥吧</p>
   {% endfor %}

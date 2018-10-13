@@ -37,6 +37,15 @@
       <ul class="nav navbar-nav navbar-collapse-right">
         <li><a href="{% url 'blog_list' %}">博客列表</a></li>
       </ul>
+
+      <ul class="nav navbar-nav">
+        {% if user.is_authenticated %}
+          欢迎, {{ user.username }}
+        {% else %}
+          <a href="{% url 'users:login' %}">登陆</a>
+        {% endif %}
+      </ul>
+
     </div>
 
   </div>
